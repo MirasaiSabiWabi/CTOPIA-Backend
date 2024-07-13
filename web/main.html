@@ -35,17 +35,14 @@
 <script>
   var audio = document.getElementById('myAudio');
 
-  // Function to play audio with 1 second delay
+  // Function to play audio after delay
   function playAudioWithDelay() {
     setTimeout(function() {
       audio.play();
-    }, 1000); // 1000 milliseconds = 1 second
+    }, 1000); // Delay set to 1000 milliseconds (1 second)
   }
 
-  // Call function to play audio after delay
-  playAudioWithDelay();
-
-  // Force play if not playing (for some browsers)
+  // Call the play function with delay when the page loads
   document.addEventListener("DOMContentLoaded", function() {
     playAudioWithDelay();
   });
