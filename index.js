@@ -20,36 +20,48 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.post('/player/login/dashboard', function (req, res) {
-    res.sendFile(__dirname + '/public/html/dashboard.html');
-});
-
-app.get('/player/login/dashboard', function (req, res) {
-    res.sendFile(__dirname + '/public/html/dashboard.html');
-});
-
 app.use(express.json());
 
-app.post('/player/growid/login/validate', (req, res) => {
-    // Extracting data from the request body
-    const _token = req.body._token;
-    const growId = req.body.growId;
-    const password = req.body.password;
+// Route for serving dashboard.html on both GET and POST to /player/login/dashboard
+app.route('/player/login/dashboard')
+    .get((req, res) => {
+        res.sendFile(__dirname + '/public/html/dashboard.html');
+    })
+    .post((req, res) => {
+        res.sendFile(__dirname + '/public/html/dashboard.html');
+    });
 
-    const token = Buffer.from(
-        `_token=${_token}&growId=${growId}&password=${password}`,
-    ).toString('base64');
+// Route for validating login and responding with a token
+app.route('/player/growid/login/validate')
+    .get((req, res) => {
+        // If GET request, you might want to handle it differently or respond with a message
+        res.send('This endpoint is for POST requests with login data.');
+    })
+    .post((req, res) => {
+        // Extracting data from the request body
+        const _token = req.body._token;
+        const growId = req.body.growId;
+        const password = req.body.password;
 
-    console.log(`Received: GrowID - ${growId}`);
+        const token = Buffer.from(
+            `_token=${_token}&growId=${growId}&password=${password}`,
+        ).toString('base64');
 
-    res.send(
-        `{"status":"success","message":"Account Validated.","token":"${token}","url":"","accountType":"growtopia"}`,
-    );
-});
+        console.log(`Received: GrowID - ${growId}`);
 
-app.post('/player/validate/close', function (req, res) {
-    res.send('<script>window.close();</script>');
-});
+        res.send(
+            `{"status":"success","message":"Account Validated.","token":"${token}","url":"","accountType":"growtopia"}`,
+        );
+    });
+
+// Route for closing the window
+app.route('/player/validate/close')
+    .get((req, res) => {
+        res.send('<script>window.close();</script>');
+    })
+    .post((req, res) => {
+        res.send('<script>window.close();</script>');
+    });
 
 app.get('/', function (req, res) {
     res.send('Hello World!');
