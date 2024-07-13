@@ -44,7 +44,8 @@ app.post('/player/validate/close', function (req, res) {
 });
 
 app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname, 'web', 'main.html'));
+       res.send('Hello World!');
+   // res.sendFile(path.join(__dirname, 'web', 'main.html'));
 });
 
 app.listen(5000, function () {
