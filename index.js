@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path'); // Importing path module to resolve file paths
 const app = express();
 const bodyParser = require('body-parser');
 
@@ -43,7 +44,7 @@ app.post('/player/validate/close', function (req, res) {
 });
 
 app.get('/', function (req, res) {
-    res.send('Hello World!');
+    res.sendFile(path.join(__dirname, 'web', 'main.html')); // Sending main.html from the web folder
 });
 
 app.listen(5000, function () {
