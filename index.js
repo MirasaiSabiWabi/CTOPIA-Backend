@@ -1,9 +1,8 @@
 const express = require('express');
 const app = express();
-const path = require('path'); // Added for path resolution
+const fs = require('fs');
 const bodyParser = require('body-parser');
 
-// Middleware for handling CORS and headers
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header(
@@ -12,48 +11,50 @@ app.use(function (req, res, next) {
     );
     next();
 });
-
-// Middleware for parsing URL-encoded bodies
+app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Middleware for logging requests
+// add logger on get or post
 app.use(function (req, res, next) {
     console.log(req.method, req.url);
     next();
 });
 
-// Middleware for parsing JSON bodies
-app.use(express.json());
-
-// Route for serving dashboard.html on POST to /player/login/dashboard
-app.post('/player/login/dashboard', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'html', 'dashboard.html'));
+app.post('/player/login/dashboard', function (req, res) {
+    res.sendFile(__dirname + '/public/html/dashboard.html');
 });
 
-// Route for validating login and responding with a token
+app.get('/player/login/dashboard', function (req, res) {
+    res.sendFile(__dirname + '/public/html/dashboard.html');
+});
+
+app.use(express.json());
+
 app.post('/player/growid/login/validate', (req, res) => {
-    const { _token, growId, password } = req.body;
+    // Extracting data from the request body
+    const _token = req.body._token;
+    const growId = req.body.growId;
+    const password = req.body.password;
 
     const token = Buffer.from(
         `_token=${_token}&growId=${growId}&password=${password}`,
     ).toString('base64');
+
+    console.log(`Received: GrowID - ${growId}`);
 
     res.send(
         `{"status":"success","message":"Account Validated.","token":"${token}","url":"","accountType":"growtopia"}`,
     );
 });
 
-// Route for closing the window
 app.post('/player/validate/close', function (req, res) {
     res.send('<script>window.close();</script>');
 });
 
-// Route for serving main.html from the "web" folder on GET to /
 app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname, 'web', 'main.html'));
+    res.send('Hello World!');
 });
 
-// Start the server and listen on port 5000
 app.listen(5000, function () {
     console.log('Listening on port 5000');
 });
