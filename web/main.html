@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CloneTopia [MAIN-WEBSITE]</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #0f0;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 16px;
+            line-height: 1.5;
+            letter-spacing: 1px;
+            text-align: left;
+            padding: 20px;
+            margin: 0;
+            height: 100vh;
+        }
+        .prompt {
+            color: #00f;
+        }
+        .output {
+            overflow: auto;
+            white-space: pre-wrap;
+            height: calc(100vh - 160px); /* Adjust height as needed */
+            margin-bottom: 20px;
+        }
+        .input-container {
+            display: flex;
+            align-items: center;
+            position: fixed;
+            bottom: 20px;
+            width: calc(100% - 40px);
+            padding: 0 20px;
+        }
+        .input-container input[type=text] {
+            flex: 3232; /* Menyesuaikan panjang sesuai ruang yang tersedia */
+            background-color: #000;
+            border: none;
+            border-bottom: 1px solid #0f0;
+            color: #0f0;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 16px;
+            line-height: 1.5;
+            padding: 5px;
+            outline: none;
+        }
+        .input-container input[type=text]:focus {
+            border-bottom: 1px solid #00f;
+        }
+        .input-container input[type=submit] {
+            background-color: transparent;
+            border: none;
+            color: #0f0;
+            padding: 10px 15px;
+            cursor: pointer;
+            outline: none;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 20px;
+            letter-spacing: 2px;
+            transition: color 0.3s;
+        }
+        .input-container input[type=submit]:hover {
+            color: #00f;
+        }
+    </style>
+</head>
+<body>
+    <div class="output" id="output">
+        <div>Hello, Welcome to CloneTopia Main Website!</div>
+        <div>Type /help to see available commands.</div>
+    </div>
+
+    <script>
+        const commandMap = {
+            '/help': 'Available commands:\n/help - Show available commands\n/discord - Redirect to CloneTopia Discord server\n/owner - Current Owner'
+        };
+
+        function processCommand(input) {
+            const outputElement = document.getElementById('output');
+            let output = '';
+
+            if (commandMap[input]) {
+                output += commandMap[input];
+            } else if (input === '/discord') {
+                output += 'Redirecting you to the Discord server in a few seconds...';
+                setTimeout(() => {
+                    window.location.href = 'https://discord.gg/47ny2ybhRk';
+                }, 4000);
+            } else if (input === '/owner') {
+                output += 'CloneTopia current Owner/Whitelisted:\n================================================\nChaos\nWATSON\nSoloify\nAkio\nChristopher\n================================================\nDesigner and Art Professional:\n================================================\nVinchent\nRWKT (Rehan)';
+             
+            } else {
+                output += `Command not found: ${input}`;
+            }
+
+            outputElement.innerHTML += `<div><span class="prompt">$ ${input}</span><br>${output}</div>`;
+        }
+
+        function submitCommand() {
+            const inputField = document.getElementById('commandInput');
+            const command = inputField.value.trim();
+
+            if (command !== '') {
+                processCommand(command);
+                inputField.value = '';
+            }
+        }
+    </script>
+
+    <div class="input-container">
+        <input type="text" id="commandInput" placeholder="Type your command here...">
+        <input type="submit" value=">" onclick="submitCommand()">
+    </div>
+</body>
+</html>
