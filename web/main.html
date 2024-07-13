@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Auto Play Audio with Centered Text</title>
+<title>Auto Play Audio with Delay</title>
 <style>
   body {
     display: flex;
@@ -24,10 +24,10 @@
 </head>
 <body>
 <div id="centered-text">
-  <p>GAY!</p>
+  <p>Enjoy the music!</p>
 </div>
 
-<audio id="myAudio" autoplay loop>
+<audio id="myAudio" loop>
   <source src="https://clonetopia-backend.vercel.app/audios/theme.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio>
@@ -35,21 +35,24 @@
 <script>
   var audio = document.getElementById('myAudio');
 
-  // Function to play audio if not playing
-  function playAudio() {
-    if (audio.paused) {
+  // Function to play audio with 1 second delay
+  function playAudioWithDelay() {
+    setTimeout(function() {
       audio.play();
-    }
+    }, 1000); // 1000 milliseconds = 1 second
   }
+
+  // Call function to play audio after delay
+  playAudioWithDelay();
 
   // Force play if not playing (for some browsers)
   document.addEventListener("DOMContentLoaded", function() {
-    playAudio();
+    playAudioWithDelay();
   });
 
   // Check if audio is playing and force play if needed (for other browsers)
   document.addEventListener("click", function() {
-    playAudio();
+    playAudioWithDelay();
   });
 </script>
 
