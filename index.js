@@ -79,7 +79,7 @@ app.route('/player/validate/close')
 
 
 app.get('/', function (req, res) {
-    res.send('Hello World!');
+    res.sendFile(path.join(__dirname, 'web', 'main.html'));
 });
 
 
