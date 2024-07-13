@@ -44,7 +44,7 @@ app.post('/player/validate/close', function (req, res) {
 });
 
 app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname, 'web', 'main.html')); // Sending main.html from the web folder
+    res.sendFile(path.join(__dirname, 'web', 'main.html'));
 });
 
 app.listen(5000, function () {
