@@ -1,51 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CloneTopia</title>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background-color: #000;
-            margin: 0;
-        }
-        .container {
-            text-align: center;
-        }
-        .image-link {
-            display: inline-block;
-            transition: transform 0.3s ease;
-            margin-bottom: 20px;
-        }
-        .image-link:hover {
-            transform: scale(1.2);
-        }
-        .image-link img {
-            width: 200px; /* Adjust the size as needed */
-        }
-        .gif {
-            width: 300px; /* Adjust the size as needed */
-        }
-        audio {
-            display: none;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Countdown and Auto Play Audio</title>
 </head>
 <body>
-    <div class="container">
-        <a href="https://discord.gg/47ny2ybhRk" target="_blank" class="image-link">
-            <img src="https://cdn.discordapp.com/attachments/1259507955150098442/1259741664562516011/20240708_121959.png?ex=669360d9&is=66920f59&hm=1ced2666befcf884d131677e1cd15fb548251420731c6cf16af386ff5ee6ad3f&" alt="Clickable Image">
-        </a>
-        <img src="https://media.tenor.com/4IL8QJDz_GsAAAAi/gojo-dance-transparent-gojo.gif" alt="Gojo Dance GIF" class="gif">
-    </div>
-<audio controls id="music" >
-
-  <source src="https://www.computerhope.com/jargon/m/example.mp3" type="audio/mpeg">
+<audio id="myAudio" autoplay loop>
+  <source src="https://clonetopia-backend.vercel.app/audios/theme.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
 </audio>
+
+<div id="countdown"></div>
+
+<script>
+  // Countdown function
+  function countdown() {
+    var count = 3;
+    var countdownElement = document.getElementById('countdown');
+
+    var countdownInterval = setInterval(function() {
+      countdownElement.textContent = count;
+      count--;
+
+      if (count < 0) {
+        clearInterval(countdownInterval);
+        countdownElement.style.display = 'none'; // Hide countdown when finished
+        document.getElementById('myAudio').play(); // Start playing audio
+      }
+    }, 1000);
+  }
+
+  // Call countdown function when the page loads
+  countdown();
+</script>
+
 </body>
 </html>
