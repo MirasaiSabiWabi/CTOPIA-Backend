@@ -3,72 +3,70 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CloneTopia Website (Main)</title>
+<title>Auto Play Audio with Background and GIF</title>
 <style>
   body {
-    background: linear-gradient(-45deg, #333, #666);
-    background-size: 400% 400%;
-    animation: gradientAnimation 15s infinite alternate ease-in-out;
+    background: #000;
+    color: #fff;
     overflow: hidden;
     margin: 0;
     padding: 0;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
     font-family: Arial, sans-serif;
   }
 
-  @keyframes gradientAnimation {
-    0% {
-      background-position: 0% 50%;
-    }
-    100% {
-      background-position: 100% 50%;
-    }
-  }
-
-  #gifContainer {
+  #background {
     position: absolute;
     top: 0;
     left: 0;
+    z-index: -1;
     width: 100%;
     height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    opacity: 0.7;
   }
 
-  #gifContainer img {
-    max-width: 100%;
+  #gifContainer {
+    position: relative;
+    z-index: 1;
+    max-width: 80%;
     max-height: 50vh;
-    object-fit: contain;
+    margin-top: -10vh;
   }
 
-  #audioContainer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
+  #textContainer {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 20px;
     text-align: center;
+    font-size: 24px;
   }
 
-  audio {
-    width: 100%;
+  #joinLink {
+    color: #fff;
+    text-decoration: underline;
+    cursor: pointer;
   }
 </style>
 </head>
 <body>
+<img id="background" src="https://media.tenor.com/0XsDOR0-6yMAAAAi/gojo-satoru-satoru-gojo.gif" alt="Background GIF">
+
 <div id="gifContainer">
   <img src="https://media.tenor.com/0XsDOR0-6yMAAAAi/gojo-satoru-satoru-gojo.gif" alt="Gojo Satoru GIF">
 </div>
 
-<div id="audioContainer">
-  <audio id="myAudio" autoplay loop>
-    <source src="https://clonetopia-backend.vercel.app/audios/theme.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
+<div id="textContainer">
+  <p>Join CloneTopia now! <span id="joinLink" onclick="openDiscord()">Click here</span></p>
 </div>
+
+<audio id="myAudio" autoplay loop>
+  <source src="https://clonetopia-backend.vercel.app/audios/theme.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
 
 <script>
   var audio = document.getElementById('myAudio');
@@ -80,7 +78,7 @@
     }
   }
 
-  // Force play if not playing (for some brojwsers)
+  // Force play if not playing (for some browsers)
   document.addEventListener("DOMContentLoaded", function() {
     playAudio();
   });
@@ -89,6 +87,11 @@
   document.addEventListener("click", function() {
     playAudio();
   });
+
+  // Function to open Discord invite link in new tab
+  function openDiscord() {
+    window.open('https://discord.com/invite/Ddqqfup9', '_blank');
+  }
 </script>
 
 </body>
