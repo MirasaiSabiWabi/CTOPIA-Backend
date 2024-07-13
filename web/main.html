@@ -3,9 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Auto Play Audio</title>
+<title>Auto Play Audio with Centered Text</title>
+<style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+  #centered-text {
+    font-size: 24px;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+  }
+</style>
 </head>
 <body>
+<div id="centered-text">
+  <p>Enjoy the music!</p>
+</div>
+
 <audio id="myAudio" autoplay loop>
   <source src="https://clonetopia-backend.vercel.app/audios/theme.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
