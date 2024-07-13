@@ -1,8 +1,7 @@
 const express = require('express');
 const app = express();
-const fs = require('fs');
 const bodyParser = require('body-parser');
-const path = require('path');  // Add this line to import the path module
+const path = require('path'); // Ensure path is required
 
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
@@ -13,7 +12,11 @@ app.use(function (req, res, next) {
     next();
 });
 
+// Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Serve static files from the 'audios' directory
+app.use('/audios', express.static(path.join(__dirname, 'public/audios')));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
