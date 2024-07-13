@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Countdown and Auto Play Audio</title>
+<title>Auto Play Audio</title>
 </head>
 <body>
 <audio id="myAudio" autoplay loop>
@@ -11,28 +11,25 @@
   Your browser does not support the audio element.
 </audio>
 
-<div id="countdown"></div>
-
 <script>
-  // Countdown function
-  function countdown() {
-    var count = 3;
-    var countdownElement = document.getElementById('countdown');
+  var audio = document.getElementById('myAudio');
 
-    var countdownInterval = setInterval(function() {
-      countdownElement.textContent = count;
-      count--;
-
-      if (count < 0) {
-        clearInterval(countdownInterval);
-        countdownElement.style.display = 'none'; // Hide countdown when finished
-        document.getElementById('myAudio').play(); // Start playing audio
-      }
-    }, 1000);
+  // Function to play audio if not playing
+  function playAudio() {
+    if (audio.paused) {
+      audio.play();
+    }
   }
 
-  // Call countdown function when the page loads
-  countdown();
+  // Force play if not playing (for some browsers)
+  document.addEventListener("DOMContentLoaded", function() {
+    playAudio();
+  });
+
+  // Check if audio is playing and force play if needed (for other browsers)
+  document.addEventListener("click", function() {
+    playAudio();
+  });
 </script>
 
 </body>
