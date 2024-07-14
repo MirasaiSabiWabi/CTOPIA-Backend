@@ -178,9 +178,12 @@
                 characterData: false,
             });
 
-            // Generate a random CAPTCHA
+            // Variable to store CAPTCHA text
+            let captcha;
+
+            // Generate a random CAPTCHA without certain characters
             function generateCaptcha() {
-                var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+                var chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz0123456789';
                 var captchaText = '';
                 for (var i = 0; i < 6; i++) {
                     captchaText += chars.charAt(Math.floor(Math.random() * chars.length));
@@ -189,7 +192,7 @@
             }
 
             function setCaptcha() {
-                var captcha = generateCaptcha();
+                captcha = generateCaptcha();
                 document.getElementById('captcha').innerText = captcha;
                 resetCheckbox();
             }
