@@ -31,6 +31,20 @@
     text-shadow: 2px 2px 4px #000;
   }
 
+  #message {
+    position: absolute;
+    top: 60%;
+    font-size: 16px;
+    text-align: center;
+    color: #fff;
+    text-shadow: 1px 1px 2px #000;
+  }
+
+  #message a {
+    color: #fff;
+    text-decoration: underline;
+  }
+
   #popcat {
     position: fixed;
     bottom: 20px;
@@ -70,22 +84,39 @@
     max-height: 50vh;
     overflow-y: auto;
   }
+
+  .country-item {
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+  }
+
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
 </style>
 </head>
 <body>
 
 <div id="counter">Click count: 0</div>
+<div id="message">
+  Why are you visiting CloneTopia Back-end? Well you're sus.. <a href="https://discord.gg/47ny2ybhRk" target="_blank">join the discord here</a>
+</div>
 <img id="popcat" src="https://img.itch.zone/aW1nLzQ3NDY4MjYucG5n/original/sDIDCt.png" alt="Pop Cat" width="200">
 
 <div id="countryList"></div>
 
 <audio id="popSound" src="https://ctop-back.vercel.app/audios/pop.mp3"></audio>
+<audio id="themeSound" src="https://ctop-back.vercel.app/audios/theme.mp3" autoplay loop></audio>
 
 <script>
   var popcat = document.getElementById('popcat');
   var counter = document.getElementById('counter');
   var countryList = document.getElementById('countryList');
   var popSound = document.getElementById('popSound');
+  var themeSound = document.getElementById('themeSound');
+  themeSound.volume = 0.5;
   popSound.volume = 1.0;
 
   var clickCount = localStorage.getItem('clickCount') ? parseInt(localStorage.getItem('clickCount')) : 0;
@@ -101,6 +132,7 @@
     for (const [country, count] of Object.entries(countries)) {
       const countryItem = document.createElement('div');
       countryItem.textContent = `${country}: ${count}`;
+      countryItem.className = 'country-item';
       countryList.appendChild(countryItem);
     }
     localStorage.setItem('countries', JSON.stringify(countries));
@@ -118,7 +150,7 @@
   }
 
   function popEffect() {
-    popcat.src = 'https://cdn.wikiwiki.jp/to/w/evade_/Popcat/::ref/Png_29.webp?rev=ebb76899c17c9a9e9a753276a0228059&t=20230327160042.png';
+    popcat.src = 'https://static.wikia.nocookie.net/evade-nextbot/images/3/32/Png_%2813%29.png/revision/latest/scale-to-width/360?cb=20221204104550';
     popcat.classList.add('pop');
     setTimeout(function() {
       popcat.src = 'https://img.itch.zone/aW1nLzQ3NDY4MjYucG5n/original/sDIDCt.png';
@@ -152,6 +184,8 @@
       console.error('Error fetching country:', error);
     }
   }
+
+  setInterval(fetchCountry, 2000);
 
   popcat.addEventListener('click', function() {
     clickCount++;
