@@ -6,8 +6,9 @@
 <title>Pop Cat Click Counter</title>
 <style>
   body {
-    background: #000;
-    color: #fff;
+    background: url('https://i.pinimg.com/originals/f7/4c/e6/f74ce6007b53858d32503641f6dd88ba.jpg') no-repeat center center fixed;
+    background-size: cover;
+    overflow: hidden;
     margin: 0;
     padding: 0;
     display: flex;
@@ -16,26 +17,46 @@
     align-items: center;
     height: 100vh;
     font-family: Arial, sans-serif;
+    filter: blur(5px); /* Gaussian blur effect */
   }
 
   #counter {
+    position: fixed;
+    top: 20px;
     font-size: 24px;
-    margin-bottom: 20px;
+    color: #fff;
+    text-shadow: 2px 2px 4px #000;
   }
 
   #popcat {
     position: fixed;
     bottom: 20px;
     cursor: pointer;
-    width: 150px;
-    height: auto;
+    transition: transform 0.3s ease;
+  }
+
+  .pop {
+    transform: scale(1.5);
+  }
+
+  #blurOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+    filter: blur(10px);
   }
 </style>
 </head>
 <body>
 
+<div id="blurOverlay"></div>
+
 <div id="counter">Click count: 0</div>
-<img id="popcat" src="https://img.itch.zone/aW1nLzQ3NDY4MjYucG5n/original/sDIDCt.png" alt="Pop Cat">
+<img id="popcat" src="https://img.itch.zone/aW1nLzQ3NDY4MjYucG5n/original/sDIDCt.png" alt="Pop Cat" width="200">
 
 <script>
   var popcat = document.getElementById('popcat');
@@ -47,18 +68,19 @@
     localStorage.setItem('clickCount', clickCount);
   }
 
-  function toggleImage() {
-    if (popcat.src === 'https://img.itch.zone/aW1nLzQ3NDY4MjYucG5n/original/sDIDCt.png') {
-      popcat.src = 'https://static.wikia.nocookie.net/evade-nextbot/images/3/32/Png_%2813%29.png/revision/latest/scale-to-width/360?cb=20221204104550';
-    } else {
+  function popEffect() {
+    popcat.src = 'https://static.wikia.nocookie.net/evade-nextbot/images/3/32/Png_%2813%29.png/revision/latest/scale-to-width/360?cb=20221204104550';
+    popcat.classList.add('pop');
+    setTimeout(function() {
       popcat.src = 'https://img.itch.zone/aW1nLzQ3NDY4MjYucG5n/original/sDIDCt.png';
-    }
+      popcat.classList.remove('pop');
+    }, 1500);
   }
 
   popcat.addEventListener('click', function() {
     clickCount++;
     updateCounter();
-    toggleImage();
+    popEffect();
   });
 
   updateCounter();
