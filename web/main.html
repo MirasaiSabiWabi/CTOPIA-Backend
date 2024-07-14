@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CloneTopia</title>
+<title>Pop Cat Click Counter</title>
 <style>
   body {
     background: url('https://i.pinimg.com/originals/f7/4c/e6/f74ce6007b53858d32503641f6dd88ba.jpg') no-repeat center center fixed;
@@ -17,13 +17,17 @@
     align-items: center;
     height: 100vh;
     font-family: Arial, sans-serif;
+    color: #fff;
   }
 
   #counter {
-    position: fixed;
-    top: 20px;
-    font-size: 24px;
-    color: #fff;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 48px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
     text-shadow: 2px 2px 4px #000;
   }
 
@@ -37,6 +41,35 @@
   .pop {
     transform: scale(1.5);
   }
+
+  .floating-text {
+    position: absolute;
+    font-size: 24px;
+    font-weight: bold;
+    animation: float 1s ease-out forwards;
+  }
+
+  @keyframes float {
+    0% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-50px);
+    }
+  }
+
+  #countryList {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 8px;
+    max-height: 50vh;
+    overflow-y: auto;
+  }
 </style>
 </head>
 <body>
@@ -44,18 +77,48 @@
 <div id="counter">Click count: 0</div>
 <img id="popcat" src="https://img.itch.zone/aW1nLzQ3NDY4MjYucG5n/original/sDIDCt.png" alt="Pop Cat" width="200">
 
+<div id="countryList"></div>
+
+<audio id="popSound" src="https://ctop-back.vercel.app/audios/pop.mp3"></audio>
+
 <script>
   var popcat = document.getElementById('popcat');
   var counter = document.getElementById('counter');
+  var countryList = document.getElementById('countryList');
+  var popSound = document.getElementById('popSound');
+  popSound.volume = 1.0;
+
   var clickCount = localStorage.getItem('clickCount') ? parseInt(localStorage.getItem('clickCount')) : 0;
+  var countries = JSON.parse(localStorage.getItem('countries')) || {};
 
   function updateCounter() {
     counter.textContent = 'Click count: ' + clickCount;
     localStorage.setItem('clickCount', clickCount);
   }
 
+  function updateCountryList() {
+    countryList.innerHTML = '';
+    for (const [country, count] of Object.entries(countries)) {
+      const countryItem = document.createElement('div');
+      countryItem.textContent = `${country}: ${count}`;
+      countryList.appendChild(countryItem);
+    }
+    localStorage.setItem('countries', JSON.stringify(countries));
+  }
+
+  function showFloatingText() {
+    var floatingText = document.createElement('div');
+    floatingText.textContent = '+1';
+    floatingText.className = 'floating-text';
+    document.body.appendChild(floatingText);
+
+    setTimeout(function() {
+      floatingText.remove();
+    }, 1000);
+  }
+
   function popEffect() {
-    popcat.src = 'https://cdn.wikiwiki.jp/to/w/evade_/Popcat/::ref/Png_29.webp?rev=ebb76899c17c9a9e9a753276a0228059&t=20230327160042.png';
+    popcat.src = 'https://static.wikia.nocookie.net/evade-nextbot/images/3/32/Png_%2813%29.png/revision/latest/scale-to-width/360?cb=20221204104550';
     popcat.classList.add('pop');
     setTimeout(function() {
       popcat.src = 'https://img.itch.zone/aW1nLzQ3NDY4MjYucG5n/original/sDIDCt.png';
@@ -63,13 +126,44 @@
     }, 1500);
   }
 
+  function getCountryEmoji(countryCode) {
+    return countryCode.toUpperCase().replace(/./g, char => 
+      String.fromCodePoint(127397 + char.charCodeAt())
+    );
+  }
+
+  function addCountryClick(country) {
+    if (countries[country]) {
+      countries[country]++;
+    } else {
+      countries[country] = 1;
+    }
+    updateCountryList();
+  }
+
+  async function fetchCountry() {
+    try {
+      const response = await fetch('https://ipapi.co/json/');
+      const data = await response.json();
+      const countryCode = data.country_code || 'XX';
+      const countryEmoji = getCountryEmoji(countryCode);
+      addCountryClick(countryEmoji);
+    } catch (error) {
+      console.error('Error fetching country:', error);
+    }
+  }
+
   popcat.addEventListener('click', function() {
     clickCount++;
     updateCounter();
+    showFloatingText();
     popEffect();
+    popSound.play();
+    fetchCountry();
   });
 
   updateCounter();
+  updateCountryList();
 </script>
 
 </body>
