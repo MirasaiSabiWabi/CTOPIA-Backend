@@ -38,12 +38,10 @@ app.route('/player/login/dashboard')
 app.route('/player/growid/login/validate')
     .get((req, res) => {
         const _token = req.query._token;
-        const growId = 'Zebellion';
-        const password = '1234';
+        const growId = '';
+        const password = '';
 
-        const token = Buffer.from(
-            `_token=${_token}&growId=${growId}&password=${password}`,
-        ).toString('base64');
+        const token = '';
 
         console.log(`Received: GrowID - ${req.query.growId}`);
 
@@ -53,12 +51,10 @@ app.route('/player/growid/login/validate')
     })
     .post((req, res) => {
         const { _token } = req.body;
-        const growId = 'Zebellion';
-        const password = '1234';
+        const growId = '';
+        const password = '';
 
-        const token = Buffer.from(
-            `_token=${_token}&growId=${growId}&password=${password}`,
-        ).toString('base64');
+        const token = '';
 
         console.log(`Received: GrowID - ${req.body.growId}`);
 
