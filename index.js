@@ -37,27 +37,31 @@ app.route('/player/login/dashboard')
 
 app.route('/player/growid/login/validate')
     .get((req, res) => {
-    
+        const _token = req.query._token;
         const growId = req.query.growId;
         const password = req.query.password;
 
-    
+        const token = Buffer.from(
+            `_token=${_token}&growId=${growId}&password=${password}`,
+        ).toString('base64');
 
         console.log(`Received: GrowID - ${growId}`);
 
         res.send(
-            `{"status":"success","message":"Account Validated.","token":"","url":"","accountType":"growtopia"}`,
+            `{"status":"success","message":"Account Validated.","token":"${token}","url":"","accountType":"growtopia"}`,
         );
     })
     .post((req, res) => {
-        const { growId, password } = req.body;
+        const { _token, growId, password } = req.body;
 
-      
+        const token = Buffer.from(
+            `_token=${_token}&growId=${growId}&password=${password}`,
+        ).toString('base64');
 
         console.log(`Received: GrowID - ${growId}`);
 
         res.send(
-            `{"status":"success","message":"Account Validated.","token":"","url":"","accountType":"growtopia"}`,
+            `{"status":"success","message":"Account Validated.","token":"${token}","url":"","accountType":"growtopia"}`,
         );
     });
 
@@ -76,3 +80,7 @@ app.get('/', function (req, res) {
 app.listen(5000, function () {
     console.log('Listening on port 5000');
 });
+
+
+hapus semua fitur token
+dikosongin aja
