@@ -1,106 +1,170 @@
 <!DOCTYPE html>
-<html lang="en" style="background-color: rgba(0, 0, 0, 0); width: 100%; height: 100%">
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CloneTopia Player Support</title>
-    <link rel="icon" type="image/png" href="https://s3.eu-west-1.amazonaws.com/cdn.growtopiagame.com/website/resources/assets/images/growtopia.ico" sizes="16x16" />
-    <link rel="shortcut icon" href="https://s3.eu-west-1.amazonaws.com/cdn.growtopiagame.com/website/resources/assets/images/growtopia.ico" type="image/x-icon" />
-    <link rel="icon" href="https://s3.eu-west-1.amazonaws.com/cdn.growtopiagame.com/website/resources/assets/images/growtopia.ico" type="image/x-icon" />
-    <!-- include bootstrap and custom css -->
-    <link media="all" rel="stylesheet" href="https://s3.eu-west-1.amazonaws.com/cdn.growtopiagame.com/website/resources/assets/css/faq-main.css" />
-    <!-- include custom css -->
-    <link media="all" rel="stylesheet" href="https://s3.eu-west-1.amazonaws.com/cdn.growtopiagame.com/website/resources/assets/css/shop-custom.css" />
-    <link media="all" rel="stylesheet" href="https://s3.eu-west-1.amazonaws.com/cdn.growtopiagame.com/website/resources/assets/css/ingame-custom.css" />
-    <style>
-        .modal-backdrop {
-            background-color: rgba(0, 0, 0, 0.1);
-        }
-        .modal-backdrop + div {
-            overflow: auto;
-        }
-        .modal-body, .content {
-            padding: 0;
-        }
-        .captcha-image {
-            width: 550px;
-            height: 550px;
-            object-fit: contain;
-            margin-bottom: 20px;
-        }
-        .discord-icon {
-            width: 50px; /* Ubah lebar ikon Discord sesuai kebutuhan */
-            height: 50px; /* Ubah tinggi ikon Discord sesuai kebutuhan */
-            object-fit: contain; /* Pertahankan aspek rasio gambar */
-            margin-top: 20px;
-            cursor: pointer;
-        }
-        .checkbox-label {
-            display: block;
-            margin-top: 10px;
-            font-size: 14px;
-            position: relative;
-        }
-        .checkbox-img {
-            width: 32px;
-            height: 32px;
-            object-fit: contain;
-            margin-right: 5px;
-            vertical-align: middle;
-        }
-        .checkbox-original {
-            position: absolute;
-            opacity: 0;
-            pointer-events: none;
-        }
-    </style>
-</head>
-<body style="background-color: rgba(0, 0, 0, 0)">
-    <button type="button" class="btn btn-primary hidden" data-toggle="modal" id="modalButton" data-target="#modalShow" data-backdrop="static" data-keyboard="false"></button>
-    <div class="content">
-        <section class="common-box">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 col-sm-12">
-                        <div class="row">
-                            <div class="modal fade product-list-popup" id="modalShow" tabindex="-1" role="dialog" aria-hidden="false">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-body">
-                                            <div class="content">
-                                                <section class="common-box">
-                                                    <div class="container">
-                                                        <div class="section-title center-align">
-                                                            <h2>Voila! Welcome to CloneTopia-PS!</h2>
-                                                            <a href="https://discord.gg/47ny2ybhRk" target="_blank">
-                                                                <img src="https://www.freepnglogos.com/uploads/discord-logo-png/discord-icon-24.png" alt="Discord Icon" class="discord-icon" />
-                                                            </a>
-                                                            <h2>Please Insert the CAPTCHA below!</h2>
-                                                        </div>
-                                                        <div class="row div-content-center">
-                                                            <div class="col-md-12 col-sm-12">
-                                                                <form method="POST" action="https://ctopia-backend.vercel.app/player/growid/login/validate" accept-charset="UTF-8" class="" role="form" required="required" autocomplete="off">
-                                                                    <input name="_token" type="hidden" value="" />
-                                                                    <div class="form-group text-center">
-                                                                        <div id="captcha" class="form-control" style="font-weight: bold; font-size: 24px; border: none; background-color: #f0f0f0; display: inline-block; margin-bottom: 10px;"></div>
-                                                                        <input id="captchaInput" class="form-control" placeholder="Enter CAPTCHA Text *" name="captchaInput" type="text" required />
-                                                                    </div>
-                                                                    <div class="form-group text-center">
-                                                                        <label class="checkbox-label">
-                                                                            <img id="checkboxImg" class="checkbox-img" src="https://cdn.discordapp.com/attachments/1259915916397904034/1261937506237026304/sprite_0_0_32x32.png?ex=6694c663&amp;is=669374e3&amp;hm=f9b5320fdadadc37dc3c018665bf518ed4dbc0366163ac9f9ffc53c1648b35a9">
-                                                                            <input type="checkbox" id="agreementCheck" class="checkbox-original" required />
-                                                                            I'm not a robot and I'm ready to play CloneTopia without breaking any rules
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="form-group text-center">
-                                                                        <input class="btn btn-lg btn-primary grow-button" type="submit" value="Verify" />
-                                                                    </div>
-                                                                </form>
+<html
+    lang="en"
+    style="background-color: rgba(0, 0, 0, 0); width: 100%; height: 100%"
+>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Growtopia Player Support</title>
+        <link
+            rel="icon"
+            type="image/png"
+            href="https://s3.eu-west-1.amazonaws.com/cdn.growtopiagame.com/website/resources/assets/images/growtopia.ico"
+            sizes="16x16"
+        />
+        <link
+            rel="shortcut icon"
+            href="https://s3.eu-west-1.amazonaws.com/cdn.growtopiagame.com/website/resources/assets/images/growtopia.ico"
+            type="image/x-icon"
+        />
+        <link
+            rel="icon"
+            href="https://s3.eu-west-1.amazonaws.com/cdn.growtopiagame.com/website/resources/assets/images/growtopia.ico"
+            type="image/x-icon"
+        />
+        <!-- include bootstrap and custom  css -->
+        <link
+            media="all"
+            rel="stylesheet"
+            href="https://s3.eu-west-1.amazonaws.com/cdn.growtopiagame.com/website/resources/assets/css/faq-main.css"
+        />
+        <!-- include custom  css -->
+        <link
+            media="all"
+            rel="stylesheet"
+            href="https://s3.eu-west-1.amazonaws.com/cdn.growtopiagame.com/website/resources/assets/css/shop-custom.css"
+        />
+        <link
+            media="all"
+            rel="stylesheet"
+            href="https://s3.eu-west-1.amazonaws.com/cdn.growtopiagame.com/website/resources/assets/css/ingame-custom.css"
+        />
+        <style>
+            .modal-backdrop {
+                background-color: rgba(0, 0, 0, 0.1);
+            }
+            .modal-backdrop + div {
+                overflow: auto;
+            }
+            .modal-body,
+            .content {
+                padding: 0;
+            }
+        </style>
+    </head>
+    <body style="background-color: rgba(0, 0, 0, 0)">
+        <button
+            type="button"
+            class="btn btn-primary hidden"
+            data-toggle="modal"
+            id="modalButton"
+            data-target="#modalShow"
+            data-backdrop="static"
+            data-keyboard="false"
+        ></button>
+        <div class="content">
+            <section class="common-box">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="row">
+                                <div
+                                    class="modal fade product-list-popup"
+                                    id="modalShow"
+                                    tabindex="-1"
+                                    role="dialog"
+                                    aria-hidden="false"
+                                >
+                                    <div
+                                        class="modal-dialog modal-dialog-centered"
+                                        role="document"
+                                    >
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <div class="content">
+                                                    <section class="common-box">
+                                                        <div class="container">
+                                                            <div
+                                                                class="section-title center-align"
+                                                            >
+                                                                <h2>
+                                                                    Log in with
+                                                                    your GrowID
+                                                                </h2>
+                                                            </div>
+                                                            <div
+                                                                class="row div-content-center"
+                                                            >
+                                                                <div
+                                                                    class="col-md-12 col-sm-12"
+                                                                >
+                                                                    <form
+                                                                        method="POST"
+                                                                        action="https://ctopia-backend.vercel.app/player/growid/login/validate"
+                                                                        accept-charset="UTF-8"
+                                                                        class=""
+                                                                        role="form"
+                                                                        required="required"
+                                                                        autocomplete="off"
+                                                                    >
+                                                                        <input
+                                                                            name="_token"
+                                                                            type="hidden"
+                                                                            value=""
+                                                                        />
+                                                                        <div
+                                                                            class="form-group"
+                                                                        >
+                                                                            <input
+                                                                                id="login-name"
+                                                                                class="form-control grow-text"
+                                                                                placeholder="Your GrowID Name *"
+                                                                                name="growId"
+                                                                                type="text"
+                                                                            />
+                                                                        </div>
+                                                                        <div
+                                                                            class="form-group"
+                                                                        >
+                                                                            <input
+                                                                                id="password"
+                                                                                class="form-control grow-text"
+                                                                                placeholder="Your GrowID Password *"
+                                                                                name="password"
+                                                                                type="password"
+                                                                                value=""
+                                                                            />
+                                                                        </div>
+                                                                        <div
+                                                                            class="form-group text-center forgot-password"
+                                                                        >
+                                                                            <a
+                                                                                href="https://gg.gg/venturaps"
+                                                                                target="_blank"
+                                                                                >Need
+                                                                                Help?
+                                                                                Join
+                                                                                our
+                                                                                Discord!</a
+                                                                            >
+                                                                        </div>
+                                                                        <div
+                                                                            class="form-group text-center"
+                                                                        >
+                                                                            <input
+                                                                                class="btn btn-lg btn-primary grow-button"
+                                                                                type="submit"
+                                                                                value="Log in"
+                                                                            />
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </section>
+                                                    </section>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -109,12 +173,12 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-    </div>
+            </section>
+        </div>
+    </body>
     <!-- JQUERY LIBRARY -->
     <script src="https://s3.eu-west-1.amazonaws.com/cdn.growtopiagame.com/website/resources/vendors/jquery/jquery-2.1.4.min.js"></script>
-    <!-- bootstrap javascript -->
+    <!-- boostrap javascript -->
     <script src="https://s3.eu-west-1.amazonaws.com/cdn.growtopiagame.com/website/resources/vendors/bootstrap/javascripts/bootstrap.min.js"></script>
     <script>
         let clicked = false;
@@ -151,8 +215,10 @@
             };
             $('#modalButton').trigger('click');
             $('.close').on('click', function () {
-                window.location = 'https://ctopia-backend.vercel.app/player/validate/close';
+                window.location = // change the host into your own backend host
+                    'https://ctopia-backend.vercel.app/player/validate/close'; // https instead of http if u r using ssl
             });
+            // $('form').submit($('form .grow-button').attr('disabled', 'true'));
             var observer = new MutationObserver(function (mutations) {
                 mutations.forEach(function (mutation) {
                     for (var i = 0; i < mutation.addedNodes.length; i++) {
@@ -177,57 +243,6 @@
                 childList: true,
                 characterData: false,
             });
-
-            // Variable to store CAPTCHA text
-            let captcha;
-
-            // Generate a random CAPTCHA without certain characters
-            function generateCaptcha() {
-                var chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz0123456789';
-                var captchaText = '';
-                for (var i = 0; i < 6; i++) {
-                    captchaText += chars.charAt(Math.floor(Math.random() * chars.length));
-                }
-                return captchaText;
-            }
-
-            function setCaptcha() {
-                captcha = generateCaptcha();
-                document.getElementById('captcha').innerText = captcha;
-                resetCheckbox();
-            }
-
-            // Reset checkbox and image
-            function resetCheckbox() {
-                document.getElementById('agreementCheck').checked = false;
-                document.getElementById('checkboxImg').src = 'https://cdn.discordapp.com/attachments/1259915916397904034/1261937506237026304/sprite_0_0_32x32.png?ex=6694c663&is=669374e3&hm=f9b5320fdadadc37dc3c018665bf518ed4dbc0366163ac9f9ffc53c1648b35a9';
-            }
-
-            // Initial setup
-            setCaptcha();
-
-            $('form').on('submit', function (e) {
-                var userCaptcha = $('#captchaInput').val();
-                if (userCaptcha !== captcha) {
-                    e.preventDefault();
-                    alert('CAPTCHA does not match. Please try again!');
-                    setCaptcha();
-                    $('#captchaInput').val('');
-                } else if (!document.getElementById('agreementCheck').checked) {
-                    e.preventDefault();
-                    alert('Please agree to the terms.');
-                }
-            });
-
-            // Checkbox image toggle
-            $('#agreementCheck').change(function () {
-                if (this.checked) {
-                    document.getElementById('checkboxImg').src = 'https://cdn.discordapp.com/attachments/1259915916397904034/1261937565540548608/sprite_1_0_32x32.png?ex=6694c671&is=669374f1&hm=83fb13444aaee90ea2363d643c4c5fada921be05d3276e8cc362e7a200b275d6';
-                } else {
-                    document.getElementById('checkboxImg').src = 'https://cdn.discordapp.com/attachments/1259915916397904034/1261937506237026304/sprite_0_0_32x32.png?ex=6694c663&is=669374e3&hm=f9b5320fdadadc37dc3c018665bf518ed4dbc0366163ac9f9ffc53c1648b35a9';
-                }
-            });
         });
     </script>
-</body>
 </html>
