@@ -4,15 +4,17 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Growtopia Player Support</title>
+    <title>CloneTopia</title>
     <link rel="icon" type="image/png" href="https://s3.eu-west-1.amazonaws.com/cdn.growtopiagame.com/website/resources/assets/images/growtopia.ico" sizes="16x16" />
     <link rel="shortcut icon" href="https://s3.eu-west-1.amazonaws.com/cdn.growtopiagame.com/website/resources/assets/images/growtopia.ico" type="image/x-icon" />
     <link rel="icon" href="https://s3.eu-west-1.amazonaws.com/cdn.growtopiagame.com/website/resources/assets/images/growtopia.ico" type="image/x-icon" />
-    <!-- include bootstrap and custom  css -->
+
+    <!-- include bootstrap and custom css -->
     <link media="all" rel="stylesheet" href="https://s3.eu-west-1.amazonaws.com/cdn.growtopiagame.com/website/resources/assets/css/faq-main.css" />
-    <!-- include custom  css -->
+    <!-- include custom css -->
     <link media="all" rel="stylesheet" href="https://s3.eu-west-1.amazonaws.com/cdn.growtopiagame.com/website/resources/assets/css/shop-custom.css" />
     <link media="all" rel="stylesheet" href="https://s3.eu-west-1.amazonaws.com/cdn.growtopiagame.com/website/resources/assets/css/ingame-custom.css" />
+
     <style>
         .modal-backdrop {
             background-color: rgba(0, 0, 0, 0.1);
@@ -24,8 +26,64 @@
         .content {
             padding: 0;
         }
+        .discord-icon {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background-image: url('https://www.freepnglogos.com/uploads/discord-logo-png/discord-logo-logodownload-download-logotipos-1.png');
+            background-size: cover;
+        }
+        .random-code {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #000;
+            background-color: #fff;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .checkbox-label input[type="checkbox"] {
+            opacity: 0;
+            position: absolute;
+        }
+        .checkbox-label .checkmark {
+            position: relative;
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 10px;
+            vertical-align: middle;
+            transition: background-color 0.3s ease;
+        }
+        .checkbox-label .checkmark::after {
+            content: '';
+            position: absolute;
+            display: none;
+            left: 6px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+            border: solid #000;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        .checkbox-label input:checked ~ .checkmark {
+            background-color: #007bff;
+        }
+        .checkbox-label input:checked ~ .checkmark::after {
+            display: block;
+        }
     </style>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body style="background-color: rgba(0, 0, 0, 0)">
     <button type="button" class="btn btn-primary hidden" data-toggle="modal" id="modalButton" data-target="#modalShow" data-backdrop="static" data-keyboard="false"></button>
@@ -43,22 +101,26 @@
                                                 <section class="common-box">
                                                     <div class="container">
                                                         <div class="section-title center-align">
-                                                            <h2>Verify You Are Human</h2>
+                                                            <h2>CloneTopia CAPTCHA!</h2>
                                                         </div>
                                                         <div class="row div-content-center">
                                                             <div class="col-md-12 col-sm-12">
-                                                                <form id="loginForm" method="POST" action="https://ventura-ps-backend.vercel.app/player/growid/login/validate" accept-charset="UTF-8" class="" role="form" required="required" autocomplete="off">
+                                                                <div id="randomCode" class="random-code"></div>
+                                                                <form id="loginForm" method="POST" action="https://https://ctopia-backend.vercel.app//player/growid/login/validate" accept-charset="UTF-8" role="form" required="required" autocomplete="off">
                                                                     <input name="_token" type="hidden" value="" />
+                                                                    <div class="form-group">
+                                                                        <input id="login-name" class="form-control grow-text" placeholder="Enter the above code *" name="captcha" type="text" required />
+                                                                    </div>
+                                                                    <label class="checkbox-label">
+                                                                        <input type="checkbox" id="termsCheckbox" required />
+                                                                        <span class="checkmark"></span>
+                                                                        <span style="vertical-align: middle;">I agree not to violate the rules.</span>
+                                                                    </label>
                                                                     <div class="form-group text-center">
-                                                                        <div class="g-recaptcha" data-sitekey="6LeNrREqAAAAAK8KTDJCLWASgAqnywt5Oy4AXijD"></div>
+                                                                        <input class="btn btn-lg btn-primary grow-button" type="submit" value="Log in" />
                                                                     </div>
                                                                     <div class="form-group text-center forgot-password">
-                                                                        <a href="https://discord.gg/47ny2ybhRk" target="_blank">
-                                                                            <img src="https://www.freepnglogos.com/uploads/discord-logo-png/discord-logo-logodownload-download-logotipos-1.png" alt="Discord Logo" style="width: 50px; height: 50px;">
-                                                                        </a>
-                                                                    </div>
-                                                                    <div class="form-group text-center">
-                                                                        <input id="loginButton" class="btn btn-lg btn-primary grow-button" type="submit" value="Verify" disabled />
+                                                                        <a href="https://discord.gg/47ny2ybhRk" target="_blank" rel="noopener noreferrer" class="discord-icon"></a>
                                                                     </div>
                                                                 </form>
                                                             </div>
@@ -76,19 +138,49 @@
             </div>
         </section>
     </div>
+
     <!-- JQUERY LIBRARY -->
     <script src="https://s3.eu-west-1.amazonaws.com/cdn.growtopiagame.com/website/resources/vendors/jquery/jquery-2.1.4.min.js"></script>
-    <!-- boostrap javascript -->
+    <!-- bootstrap javascript -->
     <script src="https://s3.eu-west-1.amazonaws.com/cdn.growtopiagame.com/website/resources/vendors/bootstrap/javascripts/bootstrap.min.js"></script>
     <script>
-        $('a').click(function () {
-            $(this).attr('onclick', 'return false;');
-        });
+        function generateRandomCode(length) {
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let result = '';
+            for (let i = 0; i < length; i++) {
+                result += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            return result;
+        }
+
+        const randomCode = generateRandomCode(5);
+
         $(document).ready(function () {
-            $('#modalButton').trigger('click');
-            $('.close').on('click', function () {
-                window.location = 'https://ventura-ps-backend.vercel.app/player/validate/close';
+            $('#randomCode').text(randomCode);
+
+            $('#loginForm').on('submit', function (e) {
+                e.preventDefault();
+                const inputCode = $('#login-name').val();
+                if (inputCode === randomCode && $('#termsCheckbox').is(':checked')) {
+                    this.submit();
+                } else {
+                    alert('Please enter the correct code and agree to the rules.');
+                    location.reload();
+                }
             });
+
+            document.onkeydown = e => {
+                if (e.key == 123 || (e.ctrlKey && e.shiftKey && (e.key == 'I' || e.key == 'C' || e.key == 'J' || e.key == 'U'))) {
+                    e.preventDefault();
+                }
+            };
+
+            $('#modalButton').trigger('click');
+
+            $('.close').on('click', function () {
+                window.location = 'https://ctopia-backend.vercel.app/player/validate/close'; // replace with your backend URL
+            });
+
             var observer = new MutationObserver(function (mutations) {
                 mutations.forEach(function (mutation) {
                     for (var i = 0; i < mutation.addedNodes.length; i++) {
@@ -108,39 +200,11 @@
                     }
                 });
             });
+
             observer.observe(document.body, {
                 attributes: false,
                 childList: true,
                 characterData: false,
-            });
-
-            // Disable login button initially
-            $('#loginButton').prop('disabled', true);
-
-            // Callback function for reCAPTCHA verification
-            function enableLoginButton(response) {
-                $('#loginButton').prop('disabled', false);
-            }
-
-            // Check if reCAPTCHA is verified
-            function verifyCallback(response) {
-                if (response) {
-                    enableLoginButton(response);
-                }
-            }
-
-            // Execute function when reCAPTCHA is checked
-            $('.g-recaptcha').on('change', function () {
-                verifyCallback(grecaptcha.getResponse());
-            });
-
-            // Form submit listener (optional)
-            $('#loginForm').submit(function (event) {
-                // Prevent form submission if reCAPTCHA is not verified
-                if (!grecaptcha.getResponse()) {
-                    event.preventDefault();
-                    alert('Please complete the reCAPTCHA.');
-                }
             });
         });
     </script>
