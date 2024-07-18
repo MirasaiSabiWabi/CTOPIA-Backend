@@ -72,7 +72,7 @@ app.route('/player/validate/close')
     });
 
 app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname, 'web', 'main.html'));
+    res.sendFile(path.join(__dirname, 'web', 'dae.html'));
 });
 
 app.listen(5000, function () {
